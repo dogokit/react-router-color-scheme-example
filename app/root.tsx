@@ -7,13 +7,13 @@ import {
   ScrollRestoration,
   useRouteLoaderData,
 } from "react-router";
-
+import "~/app.css";
+import { getColorScheme } from "~/cookies/color-scheme-cookie";
 import type { Route } from "./+types/root";
-import "./app.css";
-import { getColorScheme } from "./color-scheme-cookie";
 
 export async function loader({ request }: Route.LoaderArgs) {
-  let colorScheme = await getColorScheme(request);
+  const colorScheme = await getColorScheme(request);
+
   return { colorScheme };
 }
 
@@ -31,7 +31,8 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  let loaderData = useRouteLoaderData<typeof loader>("root");
+  const loaderData = useRouteLoaderData<typeof loader>("root");
+
   return (
     <html lang="en" className={loaderData?.colorScheme ?? "system"}>
       <head>
@@ -40,6 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
+
       <body>
         {children}
         <ScrollRestoration />

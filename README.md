@@ -10,7 +10,7 @@ If the cookie is not set, or if the value is `system`, we use the `prefers-color
 
 To support this, we override the `dark:` variant on the Tailwind configuration to work with both `.dark` class or `.system` class + media query.
 
-```css
+```scss
 @custom-variant dark {
   /* This supports the .dark class */
   &:where(.dark *, .dark) {
@@ -36,3 +36,9 @@ And since for the `.system` class we use the `prefers-color-scheme` media query 
 - [app/color-scheme-cookie.ts](./app/color-scheme-cookie.ts)
 - [app/root.tsx](./app/root.tsx)
 - [app/routes/home.tsx](./app/routes/home.tsx)
+
+## Notes
+
+### Extracting the ColorSchemeToggle component
+
+Use Context7 MCP first before doing anything. Using React Router v7 Framework convention. Extract the Form color-schema from home.tsx as ColorSchemeToggle component, and the action to change color-scheme can be separated as reusable action route. Then we can use it anywhere. After that, create a layout route that has header/navbar which use that ColorSchemeToggle. Make sure the layout route configured correctly and using Outlet. Use Context7
